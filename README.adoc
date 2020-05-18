@@ -1,0 +1,91 @@
+
+== Basics
+
+The environment works with Zsh, Vim and Tmux. Since everything is very new,
+I am taking notes so that I can remember or review how to use everything.
+More detailed notes should be present on specific pages.
+
+=== Vim
+
+- We are using neovim, because it has async functionality and we can use COC,
+a auto complete that relies on vscode language servers.
+
+Some important commands/shortcuts:
+
+
+[cols=2*,options="header"]
+|===
+|Command
+|What it does
+
+| `Space`
+| Leader
+
+| `Ctrl + P`
+| Open fuzzy search
+
+| `F10` 
+| Ale Fix (black)
+
+| `gd`
+| Go to definition
+
+| `gr`
+| Go to references
+
+| `gi`
+| Go to implementation
+
+| `Ctrl + Space`
+| Trigger Completion
+
+| `Space + za`
+| Toggle Fold Code
+
+| `Ctrl + [j,k,l,h]`
+| move to pane in direction
+
+| `Ctrl + O`
+| Go back to last location
+
+| `Ctrl +0`
+| Go to beginning of line 
+
+| `Ctrl + $`
+| Go to end of the line
+
+| `:Rg`
+| RipGrep
+
+| `:vsp <filename>`
+| Split file
+|===
+
+
+
+=== Tmux
+
+- Saves sessions automatically 
+
+
+[cols=2*,options="header"]
+|===
+|Command
+|What it does
+
+| `Ctrl + a`
+| Command mode <prefix>
+
+| `Ctrl + [j,k,l,h]`
+| move to pane in direction
+
+| `<prefix> \|`
+| Split panes vertically
+
+| `<prefix> -`
+| Split panes horizontally
+
+| `<prefix> n`
+| Cycle through window
+
+|===
