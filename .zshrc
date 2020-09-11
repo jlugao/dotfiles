@@ -4,9 +4,6 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Path to pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -72,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git asdf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -98,7 +95,6 @@ export PATH=$HOME/tools/nvim:$PATH
 alias vim="nvim"
 alias vi="nvim"
 alias oldvim="\vim"
-alias chrome="open -a 'Google Chrome'"
 alias t="tmux"
 alias ta="t a -t"
 alias tls="t ls"
@@ -112,13 +108,9 @@ alias tn="t new -t"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(pyenv init -)"
-source $HOME/.poetry/env
+# source $HOME/.poetry/env
+. $HOME/.asdf/asdf.sh
 
-# ASDF
-source $HOME/.asdf/asdf.sh
-export PATH=$HOME/.asdf:$PATH
-# append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
