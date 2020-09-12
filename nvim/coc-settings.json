@@ -1,51 +1,66 @@
-{"languageserver": {
-  "python": {
-      "python.jediEnabled": false,
-    "command": "python",
-    "args": [
-      "-mpyls",
-      "-vv",
-      "--log-file",
-      "/tmp/lsp_python.log"
-    ],
-    "trace.server": "verbose",
-    "filetypes": [
-      "python"
-    ],
-    "settings": {
-      "pyls": {
-        "enable": true,
-        "trace": {
-          "server": "verbose"
-        },
-        "commandPath": "",
-        "configurationSources": [
-          "pycodestyle"
-        ],
-        "plugins": {
-          "preload": {
-            "enabled": true
+{
+  "diagnostic.displayByAle": true,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "Markdown",
+    "coc-cfn-lint",
+    "css",
+    "go",
+    "gomod",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "markdown",
+    "markdownlint",
+    "python",
+    "ruby",
+    "sql",
+    "terraform",
+    "typescript",
+    "typescript.tsx",
+    "typescriptreact",
+    "yaml"
+  ],
+
+  "python.jediEnabled": false,
+  "languageserver": {
+    "python": {
+      "command": "python",
+      "args": ["-mpyls", "-vv", "--log-file", "/tmp/lsp_python.log"],
+      "trace.server": "verbose",
+      "filetypes": ["python"],
+      "settings": {
+        "pyls": {
+          "enable": true,
+          "trace": {
+            "server": "verbose"
           },
-          "pycodestyle": {
-            "enabled": true
-          },
-          "pydocstyle": {
-            "enabled": false,
-            "match": "(?!test_).*\\.py",
-            "matchDir": "[^\\.].*"
-          },
-          "pyflakes": {
-            "enabled": true
-          },
-          "rope_completion": {
-            "enabled": true
-          },
-          "black": {
-            "enabled": true
+          "commandPath": "",
+          "configurationSources": ["pycodestyle"],
+          "plugins": {
+            "preload": {
+              "enabled": true
+            },
+            "pycodestyle": {
+              "enabled": true
+            },
+            "pydocstyle": {
+              "enabled": false,
+              "match": "(?!test_).*\\.py",
+              "matchDir": "[^\\.].*"
+            },
+            "pyflakes": {
+              "enabled": true
+            },
+            "rope_completion": {
+              "enabled": true
+            },
+            "black": {
+              "enabled": true
+            }
           }
         }
       }
     }
   }
-}
 }
