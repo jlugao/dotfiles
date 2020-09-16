@@ -10,6 +10,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Completion and analysis
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
+Plug 'vim-test/vim-test'
+Plug 'sheerun/vim-polyglot'
 
 " python specific plugins
 Plug 'jeetsukumaran/vim-pythonsense'
@@ -24,6 +26,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'morhetz/gruvbox'
 
+
 "Tags
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
@@ -36,6 +39,10 @@ Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'habamax/vim-asciidoctor'
+
+" Markdown and wiki
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'vimwiki/vimwiki'
 
 " Fuzzy Finder
 Plug 'airblade/vim-rooter'
@@ -96,6 +103,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+
+
+set nocompatible
+filetype plugin on
+syntax on
+
 set autoindent
 set encoding=utf-8
 set nowrap
@@ -142,7 +155,7 @@ nmap // :BLines!<CR>
 nmap ?? :Rg!<CR>
 
 " Bind "<leader>p" to a fzf-powered filename search
-nmap <leader>p :Files!<CR>
+nmap <C-p> :Files!<CR>
 
 " Bind "cc" to a fzf-powered command search
 nmap cc :Commands!<CR>
@@ -334,17 +347,29 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
-  " Git Gutter
-  highlight GitGutterAdd guifg=#009900 ctermfg=Green
-  highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
-  highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
-  nmap ) <Plug>(GitGutterNextHunk)
-  nmap ( <Plug>(GitGutterPrevHunk)
-  let g:gitgutter_enabled = 1
-  let g:gitgutter_map_keys = 0
-  let g:gitgutter_highlight_linenrs = 1
+" Git Gutter
+highlight GitGutterAdd guifg=#009900 ctermfg=Green
+highlight GitGutterChange guifg=#bbbb00 ctermfg=Yellow
+highlight GitGutterDelete guifg=#ff2222 ctermfg=Red
+nmap ) <Plug>(GitGutterNextHunk)
+nmap ( <Plug>(GitGutterPrevHunk)
+let g:gitgutter_enabled = 1
+let g:gitgutter_map_keys = 0
+let g:gitgutter_highlight_linenrs = 1
 
-  " Vim-airline
-  let g:airline#extensions#wordcount#enabled = 1
-  let g:airline#extensions#hunks#non_zero_only = 1
-  let g:airline_theme = 'codedark'
+" Vim-airline
+let g:airline#extensions#wordcount#enabled = 1
+let g:airline#extensions#hunks#non_zero_only = 1
+let g:airline_theme = 'codedark'
+
+" these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
+
+" Spell Checker
+vmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)

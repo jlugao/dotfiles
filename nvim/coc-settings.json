@@ -1,4 +1,5 @@
 {
+  "python.formatting.provider": "black",
   "diagnostic.displayByAle": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "Markdown",
@@ -6,7 +7,6 @@
     "css",
     "go",
     "gomod",
-    "html",
     "javascript",
     "javascriptreact",
     "json",
@@ -62,5 +62,6 @@
         }
       }
     }
-  }
+  },
+  "cSpell.userWords": ["neoclide"]
 }

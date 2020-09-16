@@ -100,6 +100,12 @@ alias ta="t a -t"
 alias tls="t ls"
 alias tn="t new -t"
 alias activate="source .venv/bin/activate"
+alias ls="lsd"
+alias la="lsd -a"
+alias ll="lsd -al"
+
+
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
