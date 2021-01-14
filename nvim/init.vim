@@ -79,6 +79,8 @@ function! LinterStatus() abort
         \)
 endfunction
 
+set clipboard+=unnamedplus
+
 " set statusline=
 " set statusline+=%m
 " set statusline+=\ %f
