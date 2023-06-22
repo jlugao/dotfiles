@@ -1,6 +1,47 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+[[ -r ~/.repos/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/.repos/znap
+source ~/.repos/znap/znap.zsh  # Start Znap
+
+HISTFILE=~/.history
+# Max number of entries to keep in history file.
+SAVEHIST=$(( 100 * 1000 ))      # Use multiplication for readability.
+
+# Max number of history entries to keep in memory.
+HISTSIZE=$(( 1.2 * SAVEHIST ))  # Zsh recommended value
+
+# Use modern file-locking mechanisms, for better safety & performance.
+setopt HIST_FCNTL_LOCK
+
+# Keep only the most recent copy of each duplicate entry in history.
+setopt HIST_IGNORE_ALL_DUPS
+
+# Auto-sync history between concurrent sessions.
+setopt SHARE_HISTORY
+
+
+
+export SSH_AUTH_SOCK=~/.1password/agent.sock
+
+local -a plugins=(
+    marlonrichert/zsh-autocomplete      # Real-time type-ahead completion
+    marlonrichert/zsh-hist              # Edit history from the command line.
+    marlonrichert/zcolors               # Colors for completions and Git
+    zsh-users/zsh-autosuggestions       # Inline suggestions
+    zsh-users/zsh-syntax-highlighting   # Command-line syntax highlighting
+)
+
+znap clone $plugins
+local p=
+for p in $plugins; do
+  znap source $p
+done
+znap eval zcolors zcolors   # Extra init code needed for zcolors.
+
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -19,7 +60,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -79,9 +120,8 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf)
+plugins=(git )
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -125,9 +165,7 @@ alias ll="lsd -al"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # source $HOME/.poetry/env
-. $HOME/.asdf/asdf.sh
 
-fpath=(${ASDF_DIR}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit
 compinit
@@ -139,3 +177,31 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export PG_OF_PATH=/home/jlugao/openframeworks
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# fnm
+export PATH="/home/jlugao/.local/share/fnm:$PATH"
+eval "`fnm env`"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+eval "$(fnm env --use-on-cd)"
+
+# zsh-autocomplete
+bindkey '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
++autocomplete:recent-directories() {
+   reply=( [code that generates an array of absolute paths] )
+}
++autocomplete:recent-files() {
+   reply=( [code that generates an array of absolute paths] )
+}
+
+# autoenv
+fpath+=~/.zfunc
+zstyle '*:compinitsource' '/home/jlugao/.local/share/fnm/node-versions/v18.8.0/installation/lib/node_modules/@hyperupcall/autoenv/activate.sh'
