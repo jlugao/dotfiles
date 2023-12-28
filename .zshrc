@@ -27,7 +27,6 @@ setopt SHARE_HISTORY
 export SSH_AUTH_SOCK=~/.1password/agent.sock
 
 local -a plugins=(
-    marlonrichert/zsh-autocomplete      # Real-time type-ahead completion
     marlonrichert/zsh-hist              # Edit history from the command line.
     marlonrichert/zcolors               # Colors for completions and Git
     zsh-users/zsh-autosuggestions       # Inline suggestions
@@ -50,6 +49,8 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+export PATH=$HOME/.config/emacs/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -118,7 +119,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git )
+plugins=(git zsh-autocomplete)
 
 source $ZSH/oh-my-zsh.sh
 # User configuration
@@ -189,3 +190,15 @@ bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
 +autocomplete:recent-files() {
    reply=( [code that generates an array of absolute paths] )
 }
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# make history work
+bindkey '^R' .history-incremental-search-backward
+bindkey '^S' .history-incremental-search-forward
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(zoxide init zsh)"
